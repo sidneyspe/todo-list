@@ -1,6 +1,6 @@
 <!-- views/profile.ejs -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="todo-list">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -8,47 +8,69 @@
   <title>TODO-list - Perfil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet/less" type="text/css" href="/stylesheets/todo-list.less" />
+  <!-- <link rel="stylesheet/less" type="text/css" href="/stylesheets/bootstrap.css" /> -->
   <script type="text/javascript" src="/js/libs/socket.io-1.4.5.js"></script>
   <script type="text/javascript" src="/js/libs/jquery-3.1.1.min.js"></script>
-
   <script>
     less = {
       env: "development"
     };
   </script>
   <script src="/js/libs/less.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/semantic.min.css">
-  <script src="/js/libs/semantic.min.js"></script>
-
-  <link rel="stylesheet" href="https://cdn.plyr.io/2.0.18/plyr.css">
-  <script src="https://cdn.plyr.io/2.0.18/plyr.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
-  <script type="text/javascript" src="/js/libs/wowza.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootflat.min.css">
+  <script src="/js/libs/bootstrap.bundle.js"></script>
+  <script src="/js/libs/icheck.min.js"></script>
+  <script src="/js/libs/jquery.fs.selecter.min.js"></script>
+  <script src="/js/libs/jquery.fs.stepper.min.js"></script>
+  <script src="/js/libs/angular.min.js"></script>
+  <script src="/js/controller/home.controller.js"></script>
 
 </head>
 
 <body>
 
-  <div class="ui stackable menu">
-    <a class="active red item">TODO-list</a>
-    <a href="/logout" class="item">Sair</a>
-  </div>
-
-  <div class="ui container">
-    <div class="ui stackable middle two column aligned centered grid">
-      <div class=" column">
-        <h1> Welcome </h1>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">TODO-list</a>
+        <a class="" href="/logout">Exit</a>
       </div>
-      <div class="ui vertical divider"></div>
-      <div class=" column">
-        <h1> TODO List </h1>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-5" style="height: 1px;">
+        <ul class="nav navbar-nav">
+          <a class="" href="/logout">Exit</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container" ng-controller="TodoListController as vm">
+
+    <div class="row" style="padding-top: 5%;">
+      <div class="col-md-12">
+        <span>You have {{vm.remaining()}} of {{vm.todos.length}} remaining</span> [ <a href="" ng-click="vm.archive()">archive</a> ]
+      </div>
+      <div class="col-md-6">
+        <form ng-submit="vm.addTodo()">
+          <label> New TODO </label>
+          <input type="text" class="form-control" ng-model="vm.todoText" size="30" placeholder="Describe...">
+          <br>
+          <input class="btn btn-primary" type="submit" value="Add TODO">
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="list-group">
+          <a href="#" class="list-group-item done-{{todo.done}}" ng-click="vm.mark(todo.id)" ng-repeat="todo in vm.todos">{{todo.text}} <i title="Remove this?" ng-click="vm.remove(todo.id)" class="fa fa-trash"></i></a>
+        </div>
       </div>
     </div>
   </div>
-
-
 </body>
 
 </html>
