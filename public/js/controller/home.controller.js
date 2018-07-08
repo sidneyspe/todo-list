@@ -3,29 +3,29 @@ angular.module('todo-list', [])
     var vm = this;
     var lastID = 2;
     vm.todos = [];
-    // when landing on the page, get all todos and show them
 
-  vm.getTodos = function() {
-    $http({
-      method: 'GET',
-      url: '/api/todos'
-    }).then(function(response) {
-      vm.todos = response.data;
-      console.log(response);
-    }, function(error) {
-      console.log('Error: ' + error);
-    });
-  };
+    vm.getTodos = function() {
+      $http({
+        method: 'GET',
+        url: '/api/todos'
+      }).then(function(response) {
+        vm.todos = response.data;
+        console.log(response);
+      }, function(error) {
+        console.log('Error: ' + error);
+      });
+    };
 
-  vm.todos = vm.getTodos();
-  // console.log(vm.todos)
-    // delete a todo after checking it
-    vm.deleteTodo = function(id) {
+    vm.todos = vm.getTodos();
+
+    vm.remove = function(id) {
+      console.log(id)
       $http({
         method: 'DELETE',
-        url: '/api/todos' + id
+        url: '/api/todos/' + id
       }).then(function(response) {
         vm.todoText = '';
+        vm.todos = response.data;
         // console.log(response);
       }, function(error) {
         console.log('Error: ' + error);
@@ -39,7 +39,7 @@ angular.module('todo-list', [])
         data: vm
       }).then(function(response) {
         vm.todoText = '';
-        // console.log(response);
+        vm.todos = response.data;
       }, function(error) {
         console.log('Error: ' + error);
       });
@@ -64,11 +64,5 @@ angular.module('todo-list', [])
     vm.mark = function(id) {
       vm.todos[id].done = !vm.todos[id].done;
     };
-
-    vm.remove = function(id) {
-      vm.todos.splice(id, 1);
-    };
-
-
 
   });

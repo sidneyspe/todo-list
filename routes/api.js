@@ -3,39 +3,34 @@ var Todo = require('../models/todo');
 function getTodos(res) {
   Todo.find(function(err, todos) {
 
-    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     if (err) {
       res.send(err);
     }
 
-    res.json(todos); // return all todos in JSON format
+    res.json(todos);
   });
 };
 
 function getTodosFromUser(res, user_id) {
-  Todo.find({ 'user': user_id }, function(err, result) {
+  Todo.find({
+    'user': user_id
+  }, function(err, result) {
 
-    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     if (err)
       res.send(err)
 
-    res.json(result); // return all todos in JSON format
+    res.json(result);
   });
 };
 
 module.exports = function(app) {
 
-  // api ---------------------------------------------------------------------
-  // get all todos
   app.get('/api/todos', function(req, res) {
-    // use mongoose to get all todos in the database
     getTodosFromUser(res, req.user._id);
   });
 
-  // create todo and send back all todos after creation
   app.post('/api/todos', function(req, res) {
 
-    // create a todo, information comes from AJAX request from Angular
     Todo.create({
       title: req.body.title,
       description: req.body.description,
@@ -44,22 +39,18 @@ module.exports = function(app) {
     }, function(err, todo) {
       if (err)
         res.send(err);
-
-      // get and return all the todos after you create another
       getTodosFromUser(res, req.user._id);
     });
 
   });
 
-  // delete a todo
   app.delete('/api/todos/:todo_id', function(req, res) {
     Todo.remove({
       _id: req.params.todo_id
     }, function(err, todo) {
       if (err)
         res.send(err);
-
-      getTodos(res);
+      getTodosFromUser(res, req.user._id);
     });
   });
 

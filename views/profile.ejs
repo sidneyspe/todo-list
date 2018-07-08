@@ -68,7 +68,7 @@
       </div>
       <div class="col-md-6">
         <div class="list-group">
-          <a href="#" class="list-group-item done-{{todo.done}}" ng-click="vm.mark(todo.id)" ng-repeat="todo in vm.todos">{{todo.title}} <i title="Remove this?" ng-click="vm.remove(todo.id)" class="fa fa-trash"></i></a>
+          <a href="#" class="list-group-item done-{{todo.done}}" ng-click="vm.mark(todo._id)" ng-repeat="todo in vm.todos">{{todo.title}} <i title="Remove this?" ng-click="vm.remove(todo._id)" class="fa fa-trash"></i></a>
         </div>
       </div>
     </div>
