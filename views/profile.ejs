@@ -1,0 +1,54 @@
+<!-- views/profile.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>TODO-list - Perfil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet/less" type="text/css" href="/stylesheets/todo-list.less" />
+  <script type="text/javascript" src="/js/libs/socket.io-1.4.5.js"></script>
+  <script type="text/javascript" src="/js/libs/jquery-3.1.1.min.js"></script>
+
+  <script>
+    less = {
+      env: "development"
+    };
+  </script>
+  <script src="/js/libs/less.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/semantic.min.css">
+  <script src="/js/libs/semantic.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.plyr.io/2.0.18/plyr.css">
+  <script src="https://cdn.plyr.io/2.0.18/plyr.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
+  <script type="text/javascript" src="/js/libs/wowza.js"></script>
+
+
+</head>
+
+<body>
+
+  <div class="ui stackable menu">
+    <a class="active red item">TODO-list</a>
+    <a href="/logout" class="item">Sair</a>
+  </div>
+
+  <div class="ui container">
+    <div class="ui stackable middle two column aligned centered grid">
+      <div class=" column">
+        <h1> Welcome </h1>
+      </div>
+      <div class="ui vertical divider"></div>
+      <div class=" column">
+        <h1> TODO List </h1>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
