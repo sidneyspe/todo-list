@@ -74,8 +74,6 @@ module.exports = function(app) {
 
     var id =  req.body;
 
-    console.log(id);
-
     Todo.update({
       _id: id
     }, {
