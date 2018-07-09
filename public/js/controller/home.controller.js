@@ -1,8 +1,8 @@
 angular.module('todo-list', [])
   .controller('TodoListController', function($scope, $http) {
     var vm = this;
-    var lastID = 2;
     vm.todos = [];
+    vm.todo = [];
 
     vm.getTodos = function() {
       $http({
@@ -10,7 +10,19 @@ angular.module('todo-list', [])
         url: '/api/todos'
       }).then(function(response) {
         vm.todos = response.data;
-        console.log(response);
+        // console.log(response);
+      }, function(error) {
+        console.log('Error: ' + error);
+      });
+    };
+
+    vm.getTodo = function(id) {
+      $http({
+        method: 'GET',
+        url: '/api/todos/' + id
+      }).then(function(response) {
+        vm.todo = response.data;
+        // console.log(response.data);
       }, function(error) {
         console.log('Error: ' + error);
       });
@@ -24,7 +36,6 @@ angular.module('todo-list', [])
         method: 'DELETE',
         url: '/api/todos/' + id
       }).then(function(response) {
-        vm.todoText = '';
         vm.todos = response.data;
         // console.log(response);
       }, function(error) {
@@ -61,8 +72,18 @@ angular.module('todo-list', [])
       });
     };
 
-    vm.mark = function(id) {
-      vm.todos[id].done = !vm.todos[id].done;
+    vm.mark = function(todo) {
+      $http({
+        method: 'post',
+        url: '/api/markTODO/',
+        data: todo
+      }).then(function(response) {
+        vm.todos = response.data;
+        // console.log(response);
+      }, function(error) {
+        console.log('Error: ' + error);
+      });
+
     };
 
   });

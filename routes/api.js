@@ -11,6 +11,24 @@ function getTodos(res) {
   });
 };
 
+// function getTodo(id) {
+//   return Todo.find({'_id': id});
+// };
+//
+
+function getTodo(res, id) {
+  Todo.find({
+    '_id': id
+  }, function(err, result) {
+
+    if (err)
+      res.send(err)
+
+    res.json(result);
+  });
+};
+
+
 function getTodosFromUser(res, user_id) {
   Todo.find({
     'user': user_id
@@ -36,6 +54,34 @@ module.exports = function(app) {
       description: req.body.description,
       done: false,
       user: req.user._id
+    }, function(err, todo) {
+      if (err)
+        res.send(err);
+      getTodosFromUser(res, req.user._id);
+    });
+
+  });
+
+  app.get('/api/todos/:todo_id', function(req, res) {
+    id = req.params.todo_id;
+    // console.log(id);
+    getTodo(res, id);
+    // console.log(res.todo.done);
+  });
+
+
+  app.post('/api/markTODO/', function(req, res) {
+
+    var id =  req.body;
+
+    console.log(id);
+
+    Todo.update({
+      _id: id
+    }, {
+      $set: {
+        done: !id.done
+      }
     }, function(err, todo) {
       if (err)
         res.send(err);

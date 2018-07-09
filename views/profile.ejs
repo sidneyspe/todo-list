@@ -56,19 +56,23 @@
       <div class="col-md-12">
         <span>You have {{vm.remaining()}} of {{vm.todos.length}} remaining</span> [ <a href="" ng-click="vm.archive()">archive</a> ]
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <form ng-submit="vm.addTodo()">
           <label> Title </label>
-          <input type="text" class="form-control" ng-model="vm.title" size="30" placeholder="Describe...">
+          <input type="text" required class="form-control" ng-model="vm.title" size="30" placeholder="Describe...">
           <label> Description </label>
-          <input type="text" class="form-control" ng-model="vm.description" size="30" placeholder="Describe...">
+          <input type="text" required class="form-control" ng-model="vm.description" size="30" placeholder="Describe...">
           <br>
           <input class="btn btn-primary" type="submit" value="Add TODO">
+          <br>
         </form>
       </div>
-      <div class="col-md-6">
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <div class="list-group">
-          <a href="#" class="list-group-item done-{{todo.done}}" ng-click="vm.mark(todo._id)" ng-repeat="todo in vm.todos">{{todo.title}} <i title="Remove this?" ng-click="vm.remove(todo._id)" class="fa fa-trash"></i></a>
+          <a href="#" class="list-group-item done-{{todo.done}}" ng-click="vm.mark(todo)" ng-repeat="todo in vm.todos">{{todo.title}} <i title="Remove this?" ng-click="vm.remove(todo._id)" class="fa fa-trash"></i></a>
         </div>
       </div>
     </div>
