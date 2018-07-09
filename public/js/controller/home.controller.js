@@ -3,6 +3,7 @@ angular.module('todo-list', [])
     var vm = this;
     vm.todos = [];
     vm.todo = [];
+    vm.idEdit = '';
 
     vm.getTodos = function() {
       $http({
@@ -52,6 +53,34 @@ angular.module('todo-list', [])
         vm.title = '';
         vm.description = '';
         vm.todos = response.data;
+      }, function(error) {
+        console.log('Error: ' + error);
+      });
+    };
+
+    vm.getTodo = function(todo) {
+      $('.modal').modal('toggle')
+      vm.idEdit = todo._id;
+      vm.titleEdit = todo.title;
+      vm.descriptionEdit = todo.description;
+    };
+
+    vm.clearForm = function(){
+      vm.titleEdit = '';
+      vm.descriptionEdit = '';
+      vm.todos = response.data;
+    }
+
+    vm.updateTodo = function() {
+      $http({
+        method: 'POST',
+        url: '/api/update',
+        data: vm
+      }).then(function(response) {
+        vm.title = '';
+        vm.description = '';
+        vm.todos = response.data;
+        $('.modal').modal('toggle')
       }, function(error) {
         console.log('Error: ' + error);
       });

@@ -69,6 +69,24 @@ module.exports = function(app) {
     // console.log(res.todo.done);
   });
 
+  app.post('/api/update/', function(req, res) {
+
+    var id =  req.body;
+
+    Todo.update({
+      _id: id.idEdit
+    }, {
+      $set: {
+        title: id.titleEdit,
+        description: id.descriptionEdit
+      }
+    }, function(err, todo) {
+      if (err)
+        res.send(err);
+      getTodosFromUser(res, req.user._id);
+    });
+
+  });
 
   app.post('/api/markTODO/', function(req, res) {
 
