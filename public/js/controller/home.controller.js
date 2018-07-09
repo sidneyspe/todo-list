@@ -49,7 +49,8 @@ angular.module('todo-list', [])
         url: '/api/todos',
         data: vm
       }).then(function(response) {
-        vm.todoText = '';
+        vm.title = '';
+        vm.description = '';
         vm.todos = response.data;
       }, function(error) {
         console.log('Error: ' + error);

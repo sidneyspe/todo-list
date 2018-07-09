@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TODO-list - Perfil</title>
+  <title>TODO-list - Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet/less" type="text/css" href="/stylesheets/todo-list.less" />
   <!-- <link rel="stylesheet/less" type="text/css" href="/stylesheets/bootstrap.css" /> -->
@@ -29,54 +29,80 @@
 
 <body>
 
-  <nav class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">TODO-list</a>
-        <a class="" href="/logout">Exit</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-5" style="height: 1px;">
-        <ul class="nav navbar-nav">
-          <a class="" href="/logout">Exit</a>
-        </ul>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/profile">TODO-List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/logout"> Logout</a>
       </div>
     </div>
   </nav>
+
+
   <div class="container" ng-controller="TodoListController as vm" ng-cloak>
 
-    <div class="row" style="padding-top: 5%;">
+    <div class="row"  >
       <div class="col-md-12">
-        <span>You have {{vm.remaining()}} of {{vm.todos.length}} remaining</span> [ <a href="" ng-click="vm.archive()">archive</a> ]
+        <h3> Welcome,
+          <span  ng-if="vm.remaining() > 0" >You have {{vm.remaining()}} of {{vm.todos.length}} remaining</span> [ <a href="" ng-click="vm.archive()">archive</a> ]
+        </h3>
       </div>
-      <div class="col-md-12">
-        <form ng-submit="vm.addTodo()">
-          <label> Title </label>
-          <input type="text" required class="form-control" ng-model="vm.title" size="30" placeholder="Describe...">
-          <label> Description </label>
-          <input type="text" required class="form-control" ng-model="vm.description" size="30" placeholder="Describe...">
-          <br>
-          <input class="btn btn-primary" type="submit" value="Add TODO">
-          <br>
-        </form>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            New TODO
+          </div>
+          <div class="card-body">
+            <form ng-submit="vm.addTodo()">
+              <label> Title </label>
+              <input type="text" required class="form-control" ng-model="vm.title" size="30" placeholder="Describe..." />
+              <label> Description </label>
+              <textarea type="text" rows="3" required class="form-control" ng-model="vm.description" size="30" placeholder="Describe..."> </textarea>
+              <br>
+              <input class="btn btn-primary" type="submit" value="Add TODO">
+              <br>
+            </form>
+          </div>
+        </div>
       </div>
+      <div class="col-md-6">
+        <h5 class="mb-0">
+          List of TODO
+        </h5>
+        <br>
+        <div id="accordion">
 
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="list-group">
-          <a href="#" class="list-group-item done-{{todo.done}}" ng-click="vm.mark(todo)" ng-repeat="todo in vm.todos">{{todo.title}} <i title="Remove this?" ng-click="vm.remove(todo._id)" class="fa fa-trash"></i></a>
+          <div class="card" ng-repeat="todo in vm.todos">
+            <div class="card-header done-{{todo.done}}" data-toggle="collapse" data-target="#{{todo._id}}" aria-expanded="false" aria-controls="{{todo._id}}">
+              <h5 class="mb-0">
+                {{todo.title}}
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Mark as Done" ng-click="vm.mark(todo)" > <i class="fa fa-magic"></i> </button>
+                  <button class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit this TODO" title="Edit this?" ng-click="vm.mark(todo)" > <i class="fa fa-pencil"></i> </button>
+                  <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete this TODO" ng-click="vm.remove(todo._id)" > <i class="fa fa-trash"></i> </button>
+                </div>
+              </h5>
+            </div>
+            <div id="{{todo._id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                {{todo.description}}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
 </body>
+
+<script>
+  $('input').iCheck();
+</script>
+
+
 
 </html>
