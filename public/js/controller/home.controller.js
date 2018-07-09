@@ -68,7 +68,6 @@ angular.module('todo-list', [])
     vm.clearForm = function(){
       vm.titleEdit = '';
       vm.descriptionEdit = '';
-      vm.todos = response.data;
     }
 
     vm.updateTodo = function() {
